@@ -26,6 +26,10 @@ Floor the final score at 0 and preserve the raw dimensions, penalties and eviden
 
 The default current-trend admission threshold is 55/100. Also require dated evidence inside the chosen collection window, ordinary-person relevance of at least 0.45 and usefulness of at least 0.40. An item without a publication date may be reviewed as an undated lead, but it cannot enter a current-trend shortlist.
 
+## Editorial hook is a separate gate
+
+This score ranks suitability and signal strength. It does not measure whether a headline will attract attention. After sorting, run `workflows/choose-topic.md` and `references/topic-hook-and-resonance.md` on every reader-facing candidate. A strong topic score cannot rescue a bland or unsupported angle, and a sharp title cannot compensate for weak trend evidence. Keep current heat, editorial hook readiness and factual support in separate fields.
+
 ## Admission rule
 
 Before a candidate enters a reader-facing top list, state:
@@ -36,3 +40,5 @@ Before a candidate enters a reader-facing top list, state:
 - **what** useful result can be checked
 
 If a candidate only supports “this company launched a feature,” it does not qualify. If no recent candidate qualifies, return fewer and add a separate evergreen section.
+
+Before accepting it, also state the supported cognitive gap, why the intended reader might care now, and what concrete payoff closes the title's open question. If the twist cannot be supported, revise or reject it; never fabricate a contrarian angle to fill the list.

@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.1 — 2026-09-21
+
+- Added a reader-situation, cognitive-gap, hook, credibility and payoff gate to topic selection, adapting relevant dbskill editorial lenses.
+- Separated trend suitability from editorial hook readiness; explicitly prohibited treating either as a click-through prediction.
+- Expanded topic shortlist fields and added a worked review showing how to revise a flat everyday AI topic without inventing a reversal.
+- Routed both user-provided and discovered topics through the same hook-and-resonance reference; validator now checks that the reference is discoverable from the Skill entrypoint.
+
 ## 0.3.0 — 2026-09-20
 
 - Repositioned the Skill as AI × ordinary-people topic discovery and practical Chinese writing.

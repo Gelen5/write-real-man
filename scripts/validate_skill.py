@@ -15,6 +15,7 @@ REQUIRED = [
     "references/technical-depth.md",
     "references/trend-discovery.md",
     "references/topic-ranking.md",
+    "references/topic-hook-and-resonance.md",
     "references/humanization.md",
     "references/validated-human-style.md",
     "references/zhuque-loop.md",
@@ -50,6 +51,8 @@ def main() -> int:
         errors.append(f"missing: {missing}")
     if not skill.startswith("---\n"):
         errors.append("SKILL.md missing YAML frontmatter")
+    if "references/topic-hook-and-resonance.md" not in skill:
+        errors.append("SKILL.md does not route topic decisions to the hook and resonance gate")
     for key in ("name:", "description:", "version:"):
         if key not in skill[:600]:
             errors.append(f"SKILL.md missing frontmatter field {key}")
