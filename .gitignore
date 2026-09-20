@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+.write-real-man/
+.env
+.DS_Store

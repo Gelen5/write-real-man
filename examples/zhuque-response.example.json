@@ -1,0 +1,11 @@
+{
+  "status": "success",
+  "softmax_confidence": 0.31,
+  "ratio_confidence": 0.2,
+  "labels_ratio": {"0": 0.8, "1": 0.1, "2": 0.1},
+  "segment_labels": [
+    {"text": "第一段示例。", "label": 0, "conf": 0.08, "order": 1, "position": [0, 6]},
+    {"text": "第二段示例。", "label": 2, "conf": 0.68, "order": 2, "position": [8, 14]}
+  ],
+  "msg": ""
+}

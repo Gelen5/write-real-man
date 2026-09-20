@@ -1,0 +1,34 @@
+{
+  "domain": {
+    "ai_tech_only": true,
+    "default_language": "zh-CN",
+    "allowed_article_types": [
+      "tutorial",
+      "review",
+      "news-analysis",
+      "case-study",
+      "opinion"
+    ]
+  },
+  "workflow": {
+    "max_detector_iterations": 3,
+    "local_lint_revise_below": 78,
+    "preserve_facts": true,
+    "preserve_code": true,
+    "preserve_urls": true,
+    "preserve_versions": true,
+    "allow_invented_first_person_experience": false
+  },
+  "zhuque": {
+    "enabled": false,
+    "endpoint": "https://ai-gateway.edgeone.link/v1/providers/zhuque-text/classify",
+    "api_key_env": "ZHUQUE_API_KEY",
+    "is_merge": false,
+    "timeout_seconds": 30,
+    "internal_gate": {
+      "min_human_ratio": 0.7,
+      "max_ai_ratio": 0.15,
+      "max_suspected_ratio": 0.25
+    }
+  }
+}
