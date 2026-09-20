@@ -1,0 +1,11 @@
+{
+  "eval_name": "ordinary-reader-topic-discovery",
+  "version": "0.3.0",
+  "cases": [
+    {"id": "technical-benchmark", "input_title": "New transformer inference engine improves throughput 34%", "expected": "excluded_from_ordinary_top10"},
+    {"id": "multi-file-upload", "input_title": "ChatGPT supports working with multiple uploaded files", "expected": "transformed_to_person_problem_action_result"},
+    {"id": "cross-source-duplicate", "input_title": "two records with the same URL", "expected": "one_cluster_two_observations"},
+    {"id": "independent-failure", "input_title": "one adapter raises while another returns an item", "expected": "successful_source_retained"}
+  ],
+  "limits": "The records under examples/topic-discovery/raw-trends.json are deterministic synthetic fixtures, not live trend measurements. Live-source checks are recorded separately in live-acceptance-2026-09-20.md."
+}

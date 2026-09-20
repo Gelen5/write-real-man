@@ -1,14 +1,26 @@
 {
   "domain": {
-    "ai_tech_only": true,
     "default_language": "zh-CN",
     "allowed_article_types": [
-      "tutorial",
-      "review",
-      "news-analysis",
-      "case-study",
-      "opinion"
+      "scenario-tutorial",
+      "beginner-guide",
+      "use-case",
+      "problem-solution",
+      "ordinary-person-news",
+      "practical-opinion"
     ]
+  },
+  "audience": {
+    "default": ["普通上班族", "普通 AI 用户"],
+    "technical_depth": 1
+  },
+  "trends": {
+    "window": "72h",
+    "fallback_window": "7d",
+    "cache_minutes": 60,
+    "default_top_n": 10,
+    "enabled_sources": ["official", "xiaohongshu", "zhihu", "weibo", "douyin", "bilibili", "wechat", "toutiao", "juejin", "36kr", "reddit", "x", "github", "hackernews", "producthunt"],
+    "cache_dir": ".cache/trends"
   },
   "workflow": {
     "max_detector_iterations": 3,

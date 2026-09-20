@@ -1,5 +1,6 @@
 __pycache__/
 *.pyc
 .write-real-man/
+.cache/trends/
 .env
 .DS_Store

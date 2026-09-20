@@ -1,70 +1,36 @@
-# Article types
+# Article types for ordinary readers
 
-Choose one primary type. Mixing is allowed only when a secondary type clearly supports the primary one.
+Choose one primary type. `scenario-tutorial` and `problem-solution` are the defaults.
 
-## tutorial
+## scenario-tutorial
 
-Reader question: “How do I actually do this?”
+Reader asks: “I have this thing to do; what should I enter and check?” Follow one task from starting material to a usable result. Show at least one plausible wrong output and a correction when that teaches the reader what to inspect.
 
-Required material:
-- goal / end state
-- prerequisites
-- exact steps
-- commands or UI actions where relevant
-- at least one failure mode or pitfall
-- verification step
+## beginner-guide
 
-Avoid:
-- long industry-history openings
-- generic benefits before showing the task
+Reader asks: “I just opened this AI tool; what is one safe, useful first task?” Avoid feature tours. End with a verified result the beginner can repeat.
 
-## review
+## use-case
 
-Reader question: “Is this worth using, and for whom?”
+Reader asks: “Where might this help in my day?” Pick a recognizable role and a bounded task. Separate sourced user reports from the sample workflow.
 
-Required material:
-- evaluation context
-- real use evidence or clearly attributed external evidence
-- strengths
-- weaknesses / constraints
-- meaningful comparison baseline
-- who should / should not use it
+## problem-solution
 
-Never invent hands-on use.
+Reader asks: “How do I get unstuck on this recurring chore?” Start from the material they already have and show the smallest useful use of AI.
 
-## news-analysis
+## ordinary-person-news
 
-Reader question: “What changed, and why does it matter?”
+Reader asks: “A new AI feature appeared; should I care?” State what changed, then move quickly to a real user problem, availability and limits. News is context, not the bulk of the article.
 
-Required material:
-- exact event and date
-- primary source
-- what is actually new
-- what did not change
-- likely implications separated from facts
-- uncertainty / missing information
+## practical-opinion
 
-## case-study
+Reader asks: “What should I try, avoid or wait for?” Give a clear judgment grounded in a concrete task and one meaningful counterpoint.
 
-Reader question: “What happened in a real task?”
+## Shared requirements
 
-Required material:
-- initial problem
-- actual process
-- decisions
-- measurable or observable result
-- failure / friction
-- lesson that generalizes
-
-First-person claims must come from user evidence.
-
-## opinion
-
-Reader question: “What is the author’s judgment, and what supports it?”
-
-Required material:
-- explicit thesis
-- evidence or concrete observations
-- causal reasoning
-- one serious counterpoint or limit
-- conclusion that advances the thesis rather than repeats the opening
+- Identify one reader and one problem.
+- State what the reader can do or decide after reading.
+- Give every paragraph one job in the task.
+- Verify current product behavior and availability.
+- Never claim personal use unless supplied by the user.
+- If the example is invented for instruction, label it as a fictional exercise.

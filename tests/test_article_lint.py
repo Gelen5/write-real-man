@@ -28,6 +28,16 @@ class ArticleLintTests(unittest.TestCase):
         report = analyze_text(text)
         self.assertGreaterEqual(report["score"], 80)
 
+    def test_ordinary_reader_metrics_are_reported(self):
+        text = "家长群里有四条通知。比如周一带美术袋，周三交签字回执。把通知贴给 AI，问：帮我列出日期和待确认项，别猜。最后保存成一张清单。"
+        report = analyze_text(text, trend_linked=True)
+        metrics = report["ordinary_reader_metrics"]
+        self.assertGreaterEqual(metrics["ordinary_reader_score"], 70)
+        self.assertTrue(metrics["scenario_presence"])
+        self.assertTrue(metrics["actionability"])
+        self.assertTrue(metrics["concrete_material"])
+        self.assertIsNotNone(metrics["trend_to_human_alignment"])
+
 
 if __name__ == "__main__":
     unittest.main()

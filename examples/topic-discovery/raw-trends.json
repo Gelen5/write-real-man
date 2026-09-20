@@ -1,0 +1,80 @@
+{
+  "collected_at": "2026-09-20T12:00:00Z",
+  "window": "72h",
+  "items": [
+    {
+      "id": "office-files-official",
+      "platform": "official",
+      "source_name": "Official product notes (fixed eval fixture)",
+      "source_type": "official",
+      "title": "ChatGPT supports working with multiple uploaded files",
+      "summary": "Office workers can ask questions about files they provide.",
+      "url": "https://example.invalid/chatgpt-files",
+      "published_at": "2026-09-20T08:00:00Z",
+      "product": "ChatGPT",
+      "trend_type": "news",
+      "rank_inputs": {"ordinary_people_relevance": 0.90, "usefulness": 0.88, "actionability": 0.84, "novelty": 0.70, "evidence_quality": 0.80}
+    },
+    {
+      "id": "office-files-community",
+      "platform": "reddit",
+      "source_name": "r/ChatGPT (fixed eval fixture)",
+      "source_type": "community",
+      "title": "ChatGPT supports working with multiple uploaded files",
+      "summary": "A user asks how to sort several office documents.",
+      "url": "https://example.invalid/reddit-files",
+      "published_at": "2026-09-20T09:00:00Z",
+      "product": "ChatGPT",
+      "trend_type": "use_case",
+      "rank_inputs": {"ordinary_people_relevance": 0.90, "usefulness": 0.90, "actionability": 0.85}
+    },
+    {
+      "id": "transformer-benchmark",
+      "platform": "github",
+      "source_name": "GitHub (fixed eval fixture)",
+      "source_type": "tool",
+      "title": "New transformer inference engine improves throughput 34%",
+      "summary": "Architecture benchmark for developer infrastructure.",
+      "url": "https://example.invalid/transformer",
+      "published_at": "2026-09-20T06:00:00Z",
+      "trend_type": "news"
+    },
+    {
+      "id": "family-meal",
+      "platform": "reddit",
+      "source_name": "r/productivity (fixed eval fixture)",
+      "source_type": "community",
+      "title": "A family uses an AI assistant to plan meals around the calendar",
+      "summary": "A single public post describes sharing a weekly menu and grocery list.",
+      "url": "https://example.invalid/family-meal",
+      "published_at": "2026-09-20T07:00:00Z",
+      "product": "ChatGPT",
+      "trend_type": "use_case",
+      "rank_inputs": {"ordinary_people_relevance": 0.82, "usefulness": 0.84, "actionability": 0.78, "novelty": 0.66}
+    },
+    {
+      "id": "resume-use",
+      "platform": "x",
+      "source_name": "X (fixed eval fixture)",
+      "source_type": "community",
+      "title": "Job seekers use ChatGPT to compare a resume against a job post",
+      "summary": "A public post shares a prompt for finding missing experience details.",
+      "url": "https://example.invalid/resume",
+      "published_at": "2026-09-20T05:00:00Z",
+      "product": "ChatGPT",
+      "trend_type": "use_case",
+      "rank_inputs": {"ordinary_people_relevance": 0.78, "usefulness": 0.82, "actionability": 0.80}
+    },
+    {
+      "id": "photo-use",
+      "platform": "reddit",
+      "source_name": "r/ChatGPT (fixed eval fixture)",
+      "source_type": "community",
+      "title": "People use AI to make a simple photo cover for a family album",
+      "summary": "A personal-use example, not a representative survey.",
+      "url": "https://example.invalid/photo",
+      "published_at": "2026-09-20T04:00:00Z",
+      "trend_type": "use_case"
+    }
+  ]
+}

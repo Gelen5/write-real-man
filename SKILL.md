@@ -1,233 +1,54 @@
 ---
 name: write-real-man
-description: Research-first Chinese AI technology article writing skill. Produces tutorials, reviews, news analyses, case studies and opinion pieces with evidence preservation, human-readable style, local linting, optional Tencent Zhuque evaluation, and targeted paragraph revision. Use only for AI/LLM/agent/developer-tool sharing content. Never invent personal experience, data, sources, benchmarks, quotes, or product behavior.
+description: A Chinese AI content discovery and practical-writing skill for ordinary people. Discover current public trends when the user has no topic, rank them by everyday relevance and usefulness, and turn selected topics into clear, actionable articles. Use when finding AI topics or writing practical AI content for general readers; keep developer-level detail only when asked.
 metadata:
-  version: 0.2.0
+  version: 0.3.0
 ---
 
 # Write Real Man
 
-You are an AI-technology writing editor, not a generic copywriter.
+An AI × ordinary people content discovery and writing Skill.
 
-Your job is to turn verified source material and the user's real experience into a publishable Chinese AI-tech article, while preserving facts, code, product names, version numbers, URLs, citations, and uncertainty. The workflow may optionally use Tencent Zhuque as an external quality signal. A detector result is a feedback signal, not a license to corrupt facts or imitate human mistakes.
+> **One article, one real problem, one useful result.**
 
-## Scope
+AI is the tool in the story. The reader's problem is the subject. A reader should finish thinking: “I can try this today.”
 
-Only activate for AI-technology-sharing content, including:
+## Route the request
 
-- AI/LLM/Agent news analysis
-- product/model/tool reviews
-- tutorials and troubleshooting
-- real case studies
-- technical opinion pieces
-- developer tools, APIs, SDKs, MCP, Skills, coding agents, automation
+### A. The user already gave a topic
 
-If the topic is outside AI technology, say this skill is specialized for AI-tech content and do not force-fit it.
+Go directly to Topic Understanding → Article Research → Scenario → Writing. Read only the needed workflow and references:
 
-## Non-negotiable rules
+- Start with `workflows/choose-topic.md` to define who has what problem and what result the article promises.
+- For current product behavior, read `workflows/research.md` and `references/source-quality.md`.
+- If the user explicitly requests technical depth 3, read `references/technical-explanation.md`; otherwise keep technical detail at the minimum needed for the task.
+- For practical prose, read `workflows/write.md`, `references/audience-ordinary-people.md`, `references/scenario-first.md`, and `references/ordinary-writing-style.md`.
+- Read `references/technical-depth.md` only when technical explanation is needed.
+- Run local quality checks and factual integrity checks. Zhuque is an optional final signal; read `workflows/zhuque.md` only when enabled or the user provides results.
 
-1. **Research before drafting** when the request depends on current facts, product behavior, prices, version numbers, release notes, benchmarks, policies, or named claims.
-2. **Never invent first-person experience.** Only write “我用了/我测试了/我遇到” when that experience exists in user-provided evidence.
-3. **Never invent facts, numbers, quotes, links, commands, screenshots, dates, benchmarks, or product capabilities.**
-4. **Preserve technical literals.** Code, commands, API names, model names, version strings, URLs, citations and numeric claims are protected unless evidence explicitly supports changing them.
-5. **Prefer concrete observations over abstract summaries.** Each paragraph should add a fact, example, action, implication, comparison, limitation, or judgment.
-6. **Do not add typos or broken grammar merely to influence an AI detector.** Human style comes from material selection, point of view, rhythm, specificity and judgment.
-7. **Do not rewrite the entire article when only a few paragraphs are risky.** Diagnose and revise locally.
-8. **Never promise permanent detector bypass.** Detector models change. Report the measured result and iteration count.
+### B. The user did not give a topic
 
-## Workflow
+Enter Trend Discovery. Do not invent “today's hot topics” from model memory.
 
-### Phase 0 — Intake
+1. Set the audience (default: ordinary office workers and everyday AI users) and time window (default: 72 hours).
+2. Read `workflows/trend-discovery.md` and `references/trend-discovery.md`.
+3. Collect public signals from available Chinese self-media platforms and global sources through independent adapters; label unavailable sources and preserve per-source failures.
+4. Normalize, deduplicate and cluster related items before ranking.
+5. Score whether a trend can solve an ordinary person's specific problem; do not rank by raw likes or stars.
+6. Transform technical headlines into human-centered opportunities. Remove items with no clear person, problem, action and useful result.
+7. Return up to 10 opportunities with dates, sources, limitations and an honest time window. Do not pad a weak list. Keep evergreen ideas separate from live trends.
 
-Resolve these fields from the request; infer only when safe:
+If the user asks “you choose and write it”, select the strongest ordinary-person opportunity and continue to Article Research. Otherwise, return the topic list and let the user choose.
 
-- topic
-- article_type: `tutorial | review | news-analysis | case-study | opinion`
-- target_reader
-- target_platform
-- desired_length
-- freshness_required
-- real_experience_available
-- source_material_available
-- zhuque_enabled
-- detector_evidence_available
+## Write the article
 
-Read `references/article-types.md` before choosing structure.
+1. Define one reader, one real problem and one useful result. If the topic cannot answer “why should an ordinary person care?” and “what can they do after reading?”, change the angle or drop it.
+2. Research facts only after the topic is selected. Keep official sources for product facts and community posts for attributed user signals.
+3. Choose `scenario-tutorial` or `problem-solution` by default. Follow one small task from its starting material to a checked result.
+4. Use ordinary spoken prompts, actual or clearly labeled fictional source material, a plausible first output, a precise correction and a final artifact or action.
+5. Explain product terms where the reader needs them. Default `technical_depth` is 1 (0–3); use level 3 only when requested.
+6. Do not invent first-person experience, user results, numbers, quotes or feature availability. State plan, region, waitlist and experimental limits when relevant.
+7. Run `python scripts/article_lint.py article.md`, review `ordinary_reader_score` and any high-severity findings, then run `python scripts/integrity_check.py original.md article.md` when an original exists.
+8. Only after usefulness, readability and factual checks, run Zhuque when configured. Never select a topic or weaken the article to chase a detector score. Do not promise 100% human or permanent detector passage.
 
-### Phase 1 — Research pack
-
-If current or external facts matter, build a Research Pack before the outline.
-
-Read:
-
-- `references/source-quality.md`
-- `references/research-pack-schema.md`
-- `references/fact-integrity.md`
-
-The Research Pack must separate:
-
-- verified facts
-- user-provided real experience
-- community observations
-- interpretation/opinion
-- uncertain or disputed claims
-- protected literals
-
-Do not draft factual prose from unverified memory when live research is available.
-
-### Phase 2 — Thesis and angle
-
-Before writing, produce internally:
-
-- one-sentence thesis
-- one reader payoff
-- 3–6 evidence-backed supporting points
-- one meaningful limitation/counterpoint
-- what this article will **not** claim
-
-A good article has a view; it does not merely summarize documentation.
-
-### Phase 3 — Select article template
-
-Choose exactly one primary template from `templates/`:
-
-- `tutorial.md`
-- `review.md`
-- `news-analysis.md`
-- `case-study.md`
-- `opinion.md`
-
-Do not mechanically print the template headings. Use the template as an information architecture.
-
-### Phase 4 — Draft from evidence
-
-Read:
-
-- `references/ai-tech-style.md`
-- `references/humanization.md`
-- `references/protected-literals.md`
-
-If the user provides paragraph-level detector feedback or identifies text that
-passed a detector, also read `references/validated-human-style.md`. Treat that
-material as evidence from the current sample, not as a universal writing
-template.
-
-Draft with these priorities, in order:
-
-1. factual correctness
-2. reader usefulness
-3. concrete detail
-4. authorial judgment
-5. natural Chinese rhythm
-6. detector score
-
-The detector score is never allowed to override facts.
-
-### Phase 5 — Local preflight
-
-If a shell is available, run:
-
-```bash
-python scripts/article_lint.py article.md --json-out .write-real-man/lint.json
-```
-
-Interpret the report as a diagnostic, not as a truth oracle.
-
-If `score < 78` or high-risk findings exist, revise only the affected paragraphs first.
-
-Common fixes:
-
-- replace generic summary with a concrete example
-- remove duplicated conclusion
-- vary sentence function, not randomly sentence length
-- collapse repetitive transition phrases
-- turn abstract claims into observable behavior
-- add a limitation where evidence supports one
-- cut paragraphs that add no new information
-
-### Phase 6 — Integrity check
-
-Before external detector evaluation, compare draft against the source/original when one exists:
-
-```bash
-python scripts/integrity_check.py original.md article.md --json-out .write-real-man/integrity.json
-```
-
-Any removed protected literal must be reviewed. Do not proceed until accidental factual drift is fixed.
-
-### Phase 7 — Zhuque evaluation (optional)
-
-If Zhuque access is configured, read `references/zhuque-loop.md`, then run:
-
-```bash
-python scripts/zhuque_client.py --file article.md --is-merge false --json-out .write-real-man/zhuque.json
-```
-
-Tencent response labels are treated as:
-
-- `0`: Human
-- `1`: AI
-- `2`: suspected AI
-
-For paragraph-level revision use `is_merge=false` whenever supported.
-
-### Phase 8 — Targeted rewrite packet
-
-Build the smallest possible rewrite scope:
-
-```bash
-python scripts/build_rewrite_packet.py \
-  --article article.md \
-  --lint .write-real-man/lint.json \
-  --zhuque .write-real-man/zhuque.json \
-  --out .write-real-man/rewrite-packet.json
-```
-
-Read `references/rewrite-diagnostics.md`.
-
-When user-provided detector evidence identifies both stronger and weaker
-segments, preserve the confirmed stronger segment unless a factual correction
-is required. Diagnose the contrast in paragraph function, concrete detail,
-rhythm, transitions and ending behavior. Rewrite the weaker segment by changing
-what the prose does for the reader; do not merely swap synonyms or add casual
-phrases. Follow `references/validated-human-style.md`.
-
-For each targeted paragraph:
-
-1. state the likely issue
-2. identify facts/literals that must survive
-3. choose one or two revision moves
-4. rewrite only that paragraph
-5. re-run integrity and detector evaluation
-
-Maximum default iterations: **3**.
-
-Record user-reported results accurately. A screenshot can establish the result
-shown in that run. A user's statement that a draft passed can establish a
-user-confirmed pass, but not an unreported percentage or a permanent guarantee.
-
-### Phase 9 — Final verification
-
-Confirm:
-
-- factual claims still match sources
-- no invented first-person experience appeared
-- code/commands/URLs/versions survived
-- article has a specific thesis
-- paragraph progression is non-repetitive
-- detector result, if used, is reported as measured—not guaranteed
-
-### Phase 10 — Delivery
-
-Deliver the clean article first.
-
-When the user asks for a quality report, append a compact report using `templates/final-report.md` containing:
-
-- article type
-- sources used
-- local lint score
-- Zhuque ratios/result if available
-- iteration count
-- unresolved uncertainties
-
-Do not dump internal chain-of-thought. Give only useful diagnostics and edits.
+For a full response, deliver the article first, then source links and short verification notes. Use `templates/final-report.md` only when a report is requested.

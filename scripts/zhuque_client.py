@@ -60,7 +60,7 @@ def classify_text(
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json",
-            "User-Agent": "write-real-man/0.1.0",
+            "User-Agent": "write-real-man/0.3.0",
         },
     )
     try:

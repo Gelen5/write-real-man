@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0 — 2026-09-20
+
+- Repositioned the Skill as AI × ordinary-people topic discovery and practical Chinese writing.
+- Added two-mode routing for user-provided topics and live trend discovery.
+- Added audience, scenario-first, ordinary-language, technical-depth, trend-discovery and topic-ranking references plus separate workflows.
+- Added independent trend source adapters, normalization, deduplication, clustering, scoring, topic transformation and a 60-minute cache.
+- Expanded article lint with ordinary-reader usefulness diagnostics and trend-to-human alignment.
+- Added fixed topic fixtures, ranking/transformer/dedup tests, five golden scenario examples, three discovery acceptance records and one researched sample article.
+- Kept Zhuque evaluation as an optional final quality signal; it is not a topic-selection criterion.
+
 ## 0.2.0 — 2026-09-19
 
 - Added a detector-evidence workflow for user-provided screenshots, segment labels and confirmed-passing drafts.

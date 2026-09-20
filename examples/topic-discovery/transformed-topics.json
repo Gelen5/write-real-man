@@ -1,0 +1,77 @@
+{
+  "topics": [
+    {
+      "title": "长文件先别从第一页读起",
+      "person": "收到长文件的人",
+      "audience": "普通上班族和普通 AI 用户",
+      "problem": "文件太长，不知道先看哪几页",
+      "ai_action": "让 AI 按问题提取重点，再回到原文核对",
+      "useful_result": "一份可核对的重点清单",
+      "why_now": "近期公开信号涉及：ChatGPT supports working with multiple uploaded files。这是选题线索，不代表普遍用户需求。",
+      "content_type": "scenario-tutorial",
+      "technical_depth": 1,
+      "classification": "hybrid",
+      "trend_types": [
+        "news",
+        "use_case"
+      ],
+      "score": 75.3,
+      "score_dimensions": {
+        "ordinary_people_relevance": 0.9,
+        "usefulness": 0.88,
+        "actionability": 0.84,
+        "freshness": 0.25,
+        "cross_platform_heat": 0.46,
+        "novelty": 0.7,
+        "evidence_quality": 0.8
+      },
+      "penalties": [],
+      "published_at": "2026-09-20T08:00:00Z",
+      "freshness_score": 0.25,
+      "source_count": 2,
+      "platforms": [
+        "official",
+        "reddit"
+      ],
+      "platform_count": 2,
+      "sources": [
+        "Official product notes (fixed eval fixture)",
+        "r/ChatGPT (fixed eval fixture)"
+      ],
+      "evidence": [
+        {
+          "id": "office-files-official",
+          "platform": "official",
+          "source_name": "Official product notes (fixed eval fixture)",
+          "source_type": "official",
+          "trend_type": "news",
+          "url": "https://example.invalid/chatgpt-files",
+          "author": null,
+          "published_at": "2026-09-20T08:00:00Z",
+          "engagement": null,
+          "summary": "Office workers can ask questions about files they provide."
+        },
+        {
+          "id": "office-files-community",
+          "platform": "reddit",
+          "source_name": "r/ChatGPT (fixed eval fixture)",
+          "source_type": "community",
+          "trend_type": "use_case",
+          "url": "https://example.invalid/reddit-files",
+          "author": null,
+          "published_at": "2026-09-20T09:00:00Z",
+          "engagement": null,
+          "summary": "A user asks how to sort several office documents."
+        }
+      ],
+      "risk": "按来源实际发布时间核对功能范围、地区和账号限制；演示输入需标注为示例。",
+      "article_outline": [
+        "摆出普通人的具体麻烦",
+        "给一小段可复制的原始材料",
+        "展示日常说法的提示词",
+        "检查 AI 漏掉或误写的地方",
+        "整理出能带走的结果"
+      ]
+    }
+  ]
+}

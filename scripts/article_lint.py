@@ -28,6 +28,11 @@ ABSTRACT_TERMS = [
     "效率", "能力", "价值", "体验", "赋能", "创新", "生态", "生产力", "场景", "范式",
     "升级", "提升", "优化", "转型", "智能化", "高质量", "竞争力",
 ]
+JARGON_TERMS = ["API", "SDK", "MCP", "Transformer", "Attention", "Benchmark", "推理吞吐", "上下文窗口", "向量数据库", "多模态", "端到端", "Agent 架构"]
+EVERYDAY_TERMS = ["上班", "家长", "孩子", "学生", "周报", "简历", "旅行", "文件", "通知", "邮件", "做饭", "买菜", "封面", "照片", "客户", "老板", "同事", "出门", "家里"]
+ACTION_TERMS = ["打开", "复制", "粘贴", "输入", "上传", "点击", "先写", "检查", "核对", "改成", "保存", "试试", "可以这样问", "提示词", "列出", "整理", "分类", "对照"]
+RESULT_TERMS = ["清单", "草稿", "结果", "表格", "行程", "周报", "简历", "待办", "文件夹", "邮件"]
+PROMPT_SCAFFOLD = ["Role:", "Context:", "Task:", "Constraints:", "Output:", "角色：", "背景：", "任务：", "约束：", "输出格式："]
 SUMMARY_STARTS = ["总之", "综上", "总的来说", "总体而言", "因此可以看出", "由此可见"]
 LIST_MARKER_RE = re.compile(r"^\s*(?:[-*+]\s+|\d+[.)、]\s*)", re.M)
 HEADING_RE = re.compile(r"^#{1,6}\s+", re.M)
@@ -64,10 +69,13 @@ def _repeat_bigrams(sentences: list[str]) -> list[tuple[str, int]]:
             token = cleaned[i : i + 6]
             if len(token) == 6:
                 chunks[token] += 1
-    return [(k, v) for k, v in chunks.most_common() if v >= 2][:8]
+    # Two occurrences often mean the source material is correctly carried into
+    # the result table; only repeated fragments seen at least three times are
+    # surfaced as a possible verbal loop.
+    return [(k, v) for k, v in chunks.most_common() if v >= 3][:8]
 
 
-def analyze_text(text: str) -> dict[str, Any]:
+def analyze_text(text: str, trend_linked: bool = False) -> dict[str, Any]:
     paragraphs = _paragraphs(text)
     sentences = _sentences(text)
     sentence_lengths = [_clean_len(s) for s in sentences]
@@ -180,6 +188,57 @@ def analyze_text(text: str) -> dict[str, Any]:
                 "preview": p[:120],
             })
 
+    # Reader usefulness checks are deliberately separate from style diagnostics.
+    # They are transparent editorial heuristics, not detector scores.
+    clean_length = max(1, len(re.sub(r"\s+", "", text)))
+    jargon_hits = {term: text.casefold().count(term.casefold()) for term in JARGON_TERMS if text.casefold().count(term.casefold())}
+    jargon_density = sum(jargon_hits.values()) / clean_length * 100
+    abstract_density = sum(abstract_hits.values()) / clean_length * 100
+    lower_text = text.casefold()
+    has_scenario = any(term in lower_text for term in EVERYDAY_TERMS) and any(mark in text for mark in ("比如", "例如", "假设", "这时", "现在", "遇到"))
+    has_action = sum(term.casefold() in lower_text for term in ACTION_TERMS) >= 2
+    has_material = bool(re.search(r"\d+|[“\"「].{3,}[”\"」]|周一|周二|下周|今天|明天", text))
+    has_result = any(term in text for term in RESULT_TERMS) and any(term in text for term in ("最后", "拿到", "整理成", "保存", "结果", "完成"))
+    scaffold_hits = [term for term in PROMPT_SCAFFOLD if term.casefold() in lower_text]
+    marketing_hits = [phrase for phrase in ("赋能", "颠覆", "革命性", "全新体验", "效率翻倍", "彻底改变", "人人都该用") if phrase in text]
+    news_markers = sum(text.count(term) for term in ("发布", "上线", "推出", "宣布", "更新"))
+    human_problem_markers = sum(text.count(term) for term in EVERYDAY_TERMS)
+    metrics = {
+        "jargon_density": round(jargon_density, 4),
+        "abstract_language": round(abstract_density, 4),
+        "scenario_presence": has_scenario,
+        "actionability": has_action,
+        "concrete_material": has_material,
+        "result_presence": has_result,
+        "ai_marketing_tone": {"hits": marketing_hits, "count": len(marketing_hits)},
+        "prompt_naturalness": {"scaffold_labels": scaffold_hits, "natural_question_markers": sum(text.count(x) for x in ("帮我", "看一下", "先", "别猜", "如果不确定"))},
+        "trend_to_human_alignment": None,
+    }
+    ordinary_score = 100
+    if jargon_density > 1.5:
+        ordinary_score -= min(25, int((jargon_density - 1.5) * 8) + 8)
+    if abstract_density > 2:
+        ordinary_score -= min(20, int((abstract_density - 2) * 5) + 5)
+    ordinary_score -= 0 if has_scenario else 20
+    ordinary_score -= 0 if has_action else 12
+    ordinary_score -= 0 if has_material else 10
+    ordinary_score -= 0 if has_result else 12
+    ordinary_score -= min(20, len(marketing_hits) * 8)
+    ordinary_score -= min(12, len(scaffold_hits) * 3)
+    ordinary_score = max(0, min(100, ordinary_score))
+    metrics["ordinary_reader_score"] = ordinary_score
+    if not has_scenario:
+        findings.append({"code": "missing_everyday_scenario", "severity": "medium", "message": "没有识别到明确的日常人物和具体情境。"})
+    if not has_action:
+        findings.append({"code": "low_actionability", "severity": "medium", "message": "缺少可照着做的动作步骤。"})
+    if not has_result:
+        findings.append({"code": "missing_useful_result", "severity": "medium", "message": "没有清楚交代读者最后能拿到什么结果。"})
+    if trend_linked:
+        alignment = round(min(1.0, human_problem_markers / max(1, news_markers + human_problem_markers)), 3)
+        metrics["trend_to_human_alignment"] = alignment
+        if news_markers >= 4 and alignment < 0.35:
+            findings.append({"code": "trend_still_news_centered", "severity": "high", "message": "发布信息比普通人的实际问题更突出；压缩新闻背景，增加可操作场景。"})
+
     score = max(0, min(100, score))
     return {
         "score": score,
@@ -200,6 +259,7 @@ def analyze_text(text: str) -> dict[str, Any]:
             "generic_phrase_hits": generic_hits,
             "abstract_term_hits": abstract_hits,
         },
+        "ordinary_reader_metrics": metrics,
         "findings": findings,
         "paragraph_findings": paragraph_findings,
         "note": "This is a deterministic writing-quality heuristic, not an AI detector.",
@@ -210,10 +270,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("file", help="Markdown/text article path")
     parser.add_argument("--json-out", help="Write JSON report to path")
+    parser.add_argument("--trend-linked", action="store_true", help="Check whether a trend article pivots from news to a human problem")
     args = parser.parse_args()
 
     text = Path(args.file).read_text(encoding="utf-8")
-    report = analyze_text(text)
+    report = analyze_text(text, trend_linked=args.trend_linked)
     payload = json.dumps(report, ensure_ascii=False, indent=2)
     print(payload)
     if args.json_out:
