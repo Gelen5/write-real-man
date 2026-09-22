@@ -1,72 +1,55 @@
 # write-real-man
 
-**v0.3.1 · AI × 普通人内容发现与实用写作 Skill**
+**v1.1.0 · AI 智能落地观察写作与公众号排版 Skill**
 
-帮助创作者找到普通人最近关心的 AI 话题，并写成读得懂、学得会、今天能试的中文内容。
+默认参考已验收的环卫工单叙事案例，让对象流转带动论证。案例分析见 `references/validated-sanitation-case.md`。用户反馈该稿朱雀100%人工特征，属于单次用户报告，不能作为其他稿件通过保证。
 
-> AI 是工具，人的问题才是文章主角。一篇文章只解决一个具体问题，并给读者一个看得见的结果。
+公众号成稿后按 `workflows/gzh-layout.md` 调用外部 `gzh-design` 自动选择主题，保留定稿文字，生成正文HTML和复制预览。依赖来源：https://github.com/isjiamu/gzh-design-skill 。当前本机已安装；其他环境需另装此依赖。
 
-## 两种使用入口
+从当前公开证据里找到一个真实事件，把政府通报、媒体报道、技术资料、企业案例和从业者信号放到同一条时间线，再把多个应用环节连接成一条可审查的技术或产业链。
 
-### 已经有题
-
-例如：“写一篇 WorkBuddy 帮普通人整理周报的文章。”Skill 先定义读者和结果，再核实必要事实，用一个小任务写出操作过程和检查方法。
-
-### 还没想好写什么
-
-例如：“最近有什么 AI 话题适合普通人？”Skill 先查最近公开信号，再去重、聚类、评分，最后把有实际价值的热点转成普通人的具体问题。默认查 72 小时，热点太少时扩大到 7 天并标明时间范围。用户没说“你直接选一个写”时，先交选题，不擅自写完整文章。
-
-## 选题怎么排
-
-总分 100：普通人相关性 30、实用价值 20、今天可操作性 15、新鲜度 10、跨平台热度 10、新角度 10、证据质量 5。技术门槛、纯新闻、纯宣传、证据弱和过时会扣分。实时推荐默认还要求 55 分以上、有窗口内的发布时间、相关性至少 0.45、实用性至少 0.40。
-
-这是选题辅助分，不是平台热度统计，也不是客观市场规模。原始点赞或 Stars 不会单独决定排名。没有合适的实时热点时，明确说明，并把常青题标成 `evergreen`。实时候选需要达到 55 分、发布时间落在窗口内、普通人相关性不低于 0.45、实用性不低于 0.40；不满足就不挤进 Top 10。
-
-趋势排序之后还要过一次编辑判断：读者能否认出具体生活场景？新角度有没有可靠依据？标题有没有留下一个值得点开的疑问？文章能不能兑现并给出可操作结果？热点分和钩子判断分开，绝不把“有用”直接当作“有人想点”。完整标准见 `references/topic-hook-and-resonance.md`。
-
-## Trend Discovery 命令行
-
-脚本使用 Python 标准库；可选社交平台 Adapter 会调用已经安装且用户已授权登录的 `opencli`。不绕过登录、验证码或平台限制。
-
-```powershell
-python scripts/trends/discover.py --window 72h --out .cache/trends/discovery.json
-```
-
-平台逐个采集，失败会记录 `unavailable` 或错误原因并继续。默认缓存 60 分钟；用 `--refresh` 强制重新抓取。默认同时查询国内平台（小红书、知乎、微博、抖音、B站、微信公众号文章、头条热榜、掘金 AI 榜、36 氪）和海外平台（X、Reddit、GitHub、Hacker News、Product Hunt），以及官方 RSS。默认关键词会按来源转换为中文“AI 日常”或英文“AI everyday”；可通过 `--platforms` 选择来源，通过 `--query "WorkBuddy"` 限定产品。国内平台搜索使用现有只读 OpenCLI；没有公开搜索、需要授权登录或命令失败会如实标为不可用。视频号当前无公开只读搜索 Adapter。官方信息用于核实事实，不能单独证明大众热度。
-
-`discover.py` 自动从 72 小时扩大到 7 天（当合格选题不足时），只推荐有日期的当期信号；不足十个时把常青题单独列出。评分保留每一维和扣分原因。
-
-## 写文章与本地检查
-
-主要操作流程见 `workflows/`；受众、场景结构、普通话表达、技术深度和趋势规则见 `references/`。可复用结构见 `templates/`，真实验收样稿及离线热点样本见 `examples/`。
-
-```powershell
-python scripts/article_lint.py article.md --trend-linked
-python scripts/integrity_check.py original.md article.md
-python -m unittest discover -s tests -v
-```
-
-Lint 报告包含普通读者分、术语密度、抽象表达、场景、可操作性、具体材料、结果、宣传腔、Prompt 自然度和热点到人的对齐度。它是可解释的本地质量启发式，不是 AI 检测器。
-
-朱雀接口保持可选：先正确、可读、有用，再按 `workflows/zhuque.md` 检查。任何项目内 gate 都不是腾讯官方通过线。
-
-## 主要目录
+## 只保留一个模式
 
 ```text
-SKILL.md
-references/       受众、写作、研究、趋势与质量规则
-workflows/        选题、调研、写作、改稿、检测流程
-scripts/          文章检查、事实保护、Trend adapters 与排序转换
-templates/        面向普通读者的文章与选题输出模板
-examples/golden/  WorkBuddy 参照样稿与普通人场景案例
-examples/topic-discovery/ 固定热点输入、排序与转换样例
-tests/            本地行为与回归测试
+事件锚点 → 时间轴 → 关键数据 → 应用分层 → 环节交接
+→ 作者判断 → 产业机会 → 现实卡点 → 人的落点
 ```
 
-## 事实和内容边界
+本版本不再路由到普通人教程、提示词合集、产品功能介绍或通用 AI 新闻摘要。
 
-- 不编造个人体验、平台数据、社区共识或产品能力。
-- 将个人帖子标为个例；互动数据保留来源和采集时间。
-- 示例若非用户真实材料，明确标成练习案例。
-- 热点候选先轻量找题，用户确认后才做文章级深度研究。
-- 检测器不是选题依据，不以牺牲事实和可读性换检测分。
+## 证据边界
+
+每条关键判断属于一种状态：
+
+- `verified_fact`：来源直接支持的事实；
+- `reported_claim`：具名机构或人物的陈述；
+- `author_inference`：作者根据事实作出的推断；
+- `proposal`：作者提出的连接或产业设想；
+- `unknown`：公开材料没有说明。
+
+“A 已存在”和“B 已存在”不能直接写成“A、B 已经打通”。研究包必须记录来源、日期、支持范围和限制。
+
+## 核心文件
+
+- `SKILL.md`：唯一入口与完整工作流。
+- `workflows/industry-research.md`：多源检索顺序。
+- `workflows/industry-synthesis.md`：链路交接和三种链路状态。
+- `workflows/industry-write.md`：成稿逻辑。
+- `references/industry-evidence.md`：来源职责和证据等级。
+- `references/industry-topic-selection.md`：事件强度、证据、链路、利害和认知差评分。
+- `references/chain-synthesis.md`：产业链、机会与反事实检查。
+- `references/industry-human-style.md`：基于事实判断的真人表达。
+- `templates/industry-research-pack.md`：JSON 研究包。
+- `templates/industry-observation.md`：文章骨架。
+
+## 本地 lint
+
+```powershell
+python scripts/article_lint.py article.md --research-pack research-pack.json
+python scripts/integrity_check.py source-notes.md article.md
+python scripts/validate_skill.py
+```
+
+文章 lint 检查事件时间、数字锚点、直接来源、系统交接、作者判断、设想边界、未知项、现实卡点和人的落点。它是可解释的编辑检查，不是事实核验器，也不是 AI 检测器。
+
+朱雀仍是可选的末端信号。任何结果只对应那一次提交的具体文本，不能承诺永久通过或百分百人工特征。

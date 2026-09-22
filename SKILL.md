@@ -1,56 +1,78 @@
 ---
 name: write-real-man
-description: A Chinese AI content discovery and practical-writing skill for ordinary people. Discover current public trends when the user has no topic, rank them by everyday relevance and usefulness, and turn selected topics into clear, actionable articles. Use when finding AI topics or writing practical AI content for general readers; keep developer-level detail only when asked.
+description: Research and write Chinese AI industry landing-observation articles from current public evidence. Use for AI industry topics, application cases, government or media evidence, multi-layer technical or business chains, industry opportunities, constraints, and readable author judgment. Produces one evidence-led mode only; it does not route to ordinary-person tutorials.
 metadata:
-  version: 0.3.1
+  version: 1.1.0
 ---
 
 # Write Real Man
 
-An AI × ordinary people content discovery and writing Skill.
+Write one kind of article: **AI 智能落地观察**.
 
-> **One article, one real problem, one useful result.**
+`事件锚点 → 时间轴 → 关键数据 → 多个真实应用 → 技术分层 → 环节衔接 → 作者判断 → 产业机会 → 现实卡点 → 人的落点`
 
-AI is the tool in the story. The reader's problem is the subject. A reader should finish thinking: “I can try this today.”
+## Boundaries
 
-## Route the request
+- Search current public sources. Do not invent recent cases from memory.
+- Keep `verified_fact`, `reported_claim`, `author_inference`, `proposal`, and `unknown` separate.
+- A source proves only the claim it supports. Several reposts of one release are one evidence origin.
+- Never invent personal experience, interviews, adoption, revenue, effectiveness, quotes, or consensus.
+- Do not promise a Zhuque score. Feedback applies only to the exact tested draft and run.
+- Do not switch into beginner tutorials, prompt collections, product tours, or generic AI news summaries.
 
-### A. The user already gave a topic
+## Workflow
 
-Go directly to Topic Understanding → Article Research → Scenario → Writing. Read only the needed workflow and references:
+### 1. Discover a chainable event
 
-- Start with `workflows/choose-topic.md` to define who has what problem and what result the article promises.
-- For any topic choice or title pitch, apply `references/topic-hook-and-resonance.md`; do not treat usefulness or trend score as proof that a reader has a reason to click.
-- For current product behavior, read `workflows/research.md` and `references/source-quality.md`.
-- If the user explicitly requests technical depth 3, read `references/technical-explanation.md`; otherwise keep technical detail at the minimum needed for the task.
-- For practical prose, read `workflows/write.md`, `references/audience-ordinary-people.md`, `references/scenario-first.md`, and `references/ordinary-writing-style.md`.
-- Read `references/technical-depth.md` only when technical explanation is needed.
-- Run local quality checks and factual integrity checks. Zhuque is an optional final signal; read `workflows/zhuque.md` only when enabled or the user provides results.
+Read `workflows/industry-research.md`, `references/industry-evidence.md`, and `references/industry-topic-selection.md`.
 
-### B. The user did not give a topic
+Search government sites, regulators, official documents, original papers, credible media, company cases, public reports, and attributed practitioner or platform discussions. Prefer an event with a date, place, action, measurable stake, and human consequence.
 
-Enter Trend Discovery. Do not invent “today's hot topics” from model memory.
+If the user asks for topics, use `templates/industry-topic-list.md` and return a shortlist. Otherwise select the strongest supported event and continue. A strong topic has one authoritative anchor, at least three connectable stages, a supportable non-obvious thesis, and consequences a reader can picture.
 
-1. Set the audience (default: ordinary office workers and everyday AI users) and time window (default: 72 hours).
-2. Read `workflows/trend-discovery.md` and `references/trend-discovery.md`.
-3. Collect public signals from available Chinese self-media platforms and global sources through independent adapters; label unavailable sources and preserve per-source failures.
-4. Normalize, deduplicate and cluster related items before ranking.
-5. Score whether a trend can solve an ordinary person's specific problem; do not rank by raw likes or stars.
-6. Transform technical headlines into human-centered opportunities. Remove items with no clear person, problem, action and useful result.
-7. Run the separate editorial hook gate in `workflows/choose-topic.md` and `references/topic-hook-and-resonance.md`. A trend score cannot rescue a flat idea; a strong hook cannot make an unsupported claim true.
-8. Return up to 10 opportunities with dated sources for trend claims, source limitations, a clear reason to click and the promised reader payoff. Do not pad a weak list. Keep evergreen ideas separate from live trends.
+### 2. Build the evidence pack
 
-If the user asks “you choose and write it”, select the strongest ordinary-person opportunity and continue to Article Research. Otherwise, return the topic list and let the user choose.
+Use `templates/industry-research-pack.md`. Record URL, publisher, date, source type, exact supported claim, and limitations. Build an event timeline, at most three anchor numbers, three to six application layers, their handoffs and failure modes, opportunities, bottlenecks, and an explicit chain hypothesis.
 
-## Write the article
+The chain hypothesis is the author's synthesis. Label it. Do not turn “A exists” and “B exists” into “A and B are already integrated.”
 
-1. Define one reader, one real problem and one useful result. Apply the editorial hook gate before accepting a title; if the topic cannot answer “why should an ordinary person care?”, “what makes this angle worth opening?” and “what can they do after reading?”, change the angle or drop it.
-2. Research facts only after the topic is selected. Keep official sources for product facts and community posts for attributed user signals.
-3. Choose `scenario-tutorial` or `problem-solution` by default. Follow one small task from its starting material to a checked result.
-4. Use ordinary spoken prompts, actual or clearly labeled fictional source material, a plausible first output, a precise correction and a final artifact or action.
-5. Explain product terms where the reader needs them. Default `technical_depth` is 1 (0–3); use level 3 only when requested.
-6. Do not invent first-person experience, user results, numbers, quotes or feature availability. State plan, region, waitlist and experimental limits when relevant.
-7. Run `python scripts/article_lint.py article.md`, review `ordinary_reader_score` and any high-severity findings, then run `python scripts/integrity_check.py original.md article.md` when an original exists.
-8. Only after usefulness, readability and factual checks, run Zhuque when configured. Never select a topic or weaken the article to chase a detector score. Do not promise 100% human or permanent detector passage.
+### 3. Stress-test the chain
 
-For a full response, deliver the article first, then source links and short verification notes. Use `templates/final-report.md` only when a report is requested.
+Read `workflows/industry-synthesis.md` and `references/chain-synthesis.md`.
+
+Reject or narrow cases that merely share an AI label. For every adjacent layer identify what moves, who receives it, who decides, what fails, and whether the connection is observed, inferred, or proposed.
+
+### 4. Draft
+
+Read `workflows/industry-write.md`, `references/industry-human-style.md`, and `templates/industry-observation.md`.
+
+Before drafting, read `references/validated-sanitation-case.md`. Its object-led progression is the default for connected operational cases. The sectioned observation template is optional: do not force numbered headings, data cards, a repeated thesis, or a summary into a continuous narrative. Research completeness does not require displaying every research field in the article.
+
+Use an event-anchor title with a concrete number, time window, action, or consequence. Open inside the event and state the question the article answers. Recommended movement:
+
+1. event and timeline;
+2. wider operational or market pressure;
+3. technical/application stack;
+4. AI boundary and human authority;
+5. business or public-service opportunities;
+6. two or three real bottlenecks;
+7. the human action or consequence at the end of the chain.
+
+Weave sources beside claims and include a source list. Use author judgment only where a comparison or decision exists.
+
+### 5. Audit and deliver
+
+Run:
+
+```powershell
+python scripts/article_lint.py article.md --research-pack research-pack.json
+python scripts/integrity_check.py source-notes.md article.md
+```
+
+Use the integrity comparison when source notes or a previous draft exist. Read `workflows/zhuque.md` only when Zhuque is enabled or the user supplies a result. Revise paragraph function before surface wording: replace empty explanation with evidence, a handoff, a constraint, a decision, or a consequence.
+
+Deliver the article first, then sources and a compact note separating facts, inference, proposals, and unknowns.
+
+### 6. Match layout to the finished article
+
+For a completed WeChat article, follow `workflows/gzh-layout.md` and invoke the installed `gzh-design` skill. The user has requested automatic content-based theme selection. Deliver Markdown, clean HTML and a copy-button preview after HTML validation. Topic-only requests stop before this stage. Preserve approved prose, paragraph order, numbers, links and the ending; layout must not add introduction cards, invented headings, slogans, signatures or CTAs. User-specified plain-text-only output takes precedence.

@@ -1,0 +1,55 @@
+{
+  "topic": "无人驾驶环卫综合巡检车如何改变环卫考核与作业链",
+  "as_of_date": "2026-09-22",
+  "event_anchor": {
+    "what": "国内首辆无人驾驶环卫综合巡检车下线",
+    "when": "2026-09-16",
+    "where": "武汉",
+    "human_stake": "道路洁净度由抽查转向连续数据后，环卫人员、运营企业和政府考核部门的工作分配可能变化",
+    "source_ids": ["S1", "S2"]
+  },
+  "thesis": {
+    "text": "这辆车最先改变的可能不是清扫，而是道路洁净度的取证、派单与考核方式",
+    "state": "author_inference"
+  },
+  "anchor_numbers": [
+    {"value": "5分钟到1秒", "meaning": "传统单点采样与无人车自动采样的公开对比", "source_ids": ["S1"]},
+    {"value": "19个省、42个城市", "meaning": "极景无人驾驶洗扫机器人的公开应用范围", "source_ids": ["S1"]},
+    {"value": "每平方米浮尘不足10克", "meaning": "北京经开区无人清扫对比测试披露的结果", "source_ids": ["S3"]}
+  ],
+  "timeline": [
+    {"time": "2026-03-11至2026-05-11", "event": "北京经开区开展智能机扫与传统人工作业对比测试", "source_ids": ["S3"]},
+    {"time": "2026-06-26", "event": "西安雁塔区智慧环卫车联网考核平台项目公布成交结果", "source_ids": ["S4"]},
+    {"time": "2026-09-16", "event": "无人驾驶环卫综合巡检车在武汉下线", "source_ids": ["S1", "S2"]}
+  ],
+  "layers": [
+    {"name": "移动感知", "input": "路面积尘、漂浮物、位置和图像", "operation": "走航采样与AI识别", "output": "道路污染数据", "recipient": "云平台", "decision_owner": "运营管理人员", "failure_mode": "抖动、气流、采样位置影响数据", "state": "verified_fact", "source_ids": ["S1", "S2"]},
+    {"name": "污染研判", "input": "积尘、图像和位置数据", "operation": "生成污染画像并定位路段或污染源", "output": "预警和作业建议", "recipient": "调度平台", "decision_owner": "运营管理人员", "failure_mode": "识别误差或数据不完整", "state": "reported_claim", "source_ids": ["S1", "S2"]},
+    {"name": "派单调度", "input": "巡检结果", "operation": "形成并下发作业订单", "output": "任务和路线", "recipient": "无人清扫车或除尘车", "decision_owner": "运营管理人员", "failure_mode": "跨设备接口和优先级冲突", "state": "reported_claim", "source_ids": ["S1"]},
+    {"name": "现场清扫", "input": "任务和路线", "operation": "智能机扫与人工精扫", "output": "清扫后的道路", "recipient": "质量考核环节", "decision_owner": "现场管理人员", "failure_mode": "加水、充电、排污及狭窄道路仍需人工或优化", "state": "verified_fact", "source_ids": ["S3"]},
+    {"name": "质量考核", "input": "车辆、视频、巡检和作业数据", "operation": "质量评价与合同考核", "output": "考核结果", "recipient": "城管部门和服务企业", "decision_owner": "政府采购与监管部门", "failure_mode": "自动采集数据是否足以作为扣款证据尚不明确", "state": "author_inference", "source_ids": ["S4", "S5"]}
+  ],
+  "claims": [
+    {"id": "C1", "text": "传统单点采样约需5分钟，无人车优化至1秒", "state": "reported_claim", "source_ids": ["S1"]},
+    {"id": "C2", "text": "巡检结果可通过平台向无人清扫车、除尘车下发作业订单", "state": "reported_claim", "source_ids": ["S1"]},
+    {"id": "C3", "text": "北京经开区测试采用智能机扫加人工精扫，部分保障环节仍需人工", "state": "verified_fact", "source_ids": ["S3"]},
+    {"id": "C4", "text": "连续数据可能进一步改变环卫考核与结算", "state": "author_inference", "source_ids": ["S4", "S5"]},
+    {"id": "C5", "text": "武汉项目的AI巡检数据是否已直接进入合同扣款结算", "state": "unknown", "source_ids": []}
+  ],
+  "opportunities": [
+    {"missing_handoff": "巡检数据跨平台转成可执行工单", "buyer": "城市管理部门与环卫运营企业", "measurable_result": "发现到派单时间、重复作业量、道路洁净度", "constraint": "接口、标定和责任规则", "state": "proposal", "source_ids": ["S1", "S4"]},
+    {"missing_handoff": "作业结果转成可审计的合同证据", "buyer": "政府采购与监管部门", "measurable_result": "考核得分与服务费结算", "constraint": "证据效力、误报申诉和人工复核", "state": "proposal", "source_ids": ["S4", "S5"]}
+  ],
+  "bottlenecks": [
+    {"name": "传感器与采样标定", "evidence": "安装位置、气流和车辆抖动会影响采样与识别", "source_ids": ["S2"]},
+    {"name": "基础保障仍需人工", "evidence": "北京测试披露加水、充电和排污仍是连续作业制约", "source_ids": ["S3"]},
+    {"name": "考核证据边界", "evidence": "存在智慧考核平台和按考核结果结算的合同，但武汉巡检数据直接用于扣款尚无公开证据", "source_ids": ["S4", "S5"]}
+  ],
+  "sources": [
+    {"id": "S1", "publisher": "武汉市人民政府/长江日报", "title": "国内首辆无人驾驶环卫综合巡检车在汉下线", "url": "https://www.wuhan.gov.cn/sy/whyw/202609/t20260918_2849429.shtml", "published_at": "2026-09-18", "accessed_at": "2026-09-22", "source_type": "authoritative_media", "supports": ["event", "sampling", "deployment", "dispatch"]},
+    {"id": "S2", "publisher": "新华网", "title": "国内首台AI无人环境综合巡检车发布", "url": "http://www.news.cn/energy/20260917/202e7dbd415d4d0d8ffccb2aabb02a66/c.html", "published_at": "2026-09-17", "accessed_at": "2026-09-22", "source_type": "authoritative_media", "supports": ["event", "technical_limits", "test_status"]},
+    {"id": "S3", "publisher": "北京经济技术开发区", "title": "智能机扫+人工精扫探路智慧环卫新模式", "url": "https://kfqgw.beijing.gov.cn/cxyzkfq/cxcg/202608/t20260821_4831532.html", "published_at": "2026-08-21", "accessed_at": "2026-09-22", "source_type": "government", "supports": ["cleaning_test", "human_machine_boundary", "operational_limits"]},
+    {"id": "S4", "publisher": "中国政府采购网", "title": "西安市雁塔区智慧环卫车联网考核平台项目成交结果", "url": "https://www.ccgp.gov.cn/cggg/dfgg/cjgg/202606/t20260626_26822541.htm", "published_at": "2026-06-26", "accessed_at": "2026-09-22", "source_type": "government_procurement", "supports": ["buyer", "quality_assessment_platform"]},
+    {"id": "S5", "publisher": "上海政府采购", "title": "2026年度增量道路环卫保洁项目合同", "url": "https://jpg.zfcg.sh.gov.cn/sh-gov-open-doc/1108QZ/cec0f54f-00bb-4a68-8ac3-a7d39c66ac85.pdf", "published_at": "2026", "accessed_at": "2026-09-22", "source_type": "government_contract", "supports": ["payment_by_assessment"]}
+  ]
+}

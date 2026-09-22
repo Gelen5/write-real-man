@@ -20,6 +20,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("article")
     parser.add_argument("--original")
+    parser.add_argument("--research-pack", help="JSON evidence pack for industry-observation checks")
     parser.add_argument("--zhuque", action="store_true")
     parser.add_argument("--out-dir", default=".write-real-man")
     parser.add_argument("--endpoint", default=os.environ.get("ZHUQUE_ENDPOINT", DEFAULT_ENDPOINT))
@@ -32,7 +33,7 @@ def main() -> int:
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    lint = analyze_text(article)
+    lint = analyze_text(article, research_pack=args.research_pack)
     (out_dir / "lint.json").write_text(json.dumps(lint, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     summary = {"lint_score": lint["score"], "lint_risk_level": lint["risk_level"]}

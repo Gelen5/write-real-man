@@ -1,0 +1,33 @@
+{
+  "score": 100,
+  "risk_level": "low",
+  "stats": {
+    "characters": 3486,
+    "paragraphs": 40,
+    "sentences": 73,
+    "sentence_length_cv": 0.744,
+    "paragraph_length_cv": 1.028,
+    "heading_count": 6,
+    "direct_source_count": 10
+  },
+  "industry_observation": {
+    "event_time": true,
+    "numeric_anchors": 94,
+    "evidence_markers": 20,
+    "handoff_markers": 4,
+    "author_judgment": true,
+    "proposal_boundary": true,
+    "uncertainty_boundary": true,
+    "human_endpoint": true,
+    "research_pack_layers": 5,
+    "research_pack_sources": 5
+  },
+  "signals": {
+    "generic_phrase_hits": {},
+    "formulaic_transition_hits": {
+      "最后": 2
+    }
+  },
+  "findings": [],
+  "note": "Deterministic editorial heuristic, not an AI detector or factual verifier. --trend-linked is deprecated."
+}

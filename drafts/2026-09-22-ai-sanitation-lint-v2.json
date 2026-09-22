@@ -1,0 +1,44 @@
+{
+  "score": 88,
+  "risk_level": "low",
+  "stats": {
+    "characters": 2159,
+    "paragraphs": 27,
+    "sentences": 61,
+    "sentence_length_cv": 0.673,
+    "paragraph_length_cv": 0.682,
+    "heading_count": 1,
+    "direct_source_count": 4
+  },
+  "industry_observation": {
+    "event_time": true,
+    "numeric_anchors": 33,
+    "evidence_markers": 11,
+    "handoff_markers": 2,
+    "author_judgment": false,
+    "proposal_boundary": true,
+    "uncertainty_boundary": true,
+    "human_endpoint": true,
+    "research_pack_layers": 5,
+    "research_pack_sources": 5
+  },
+  "signals": {
+    "generic_phrase_hits": {},
+    "formulaic_transition_hits": {
+      "最后": 1
+    }
+  },
+  "findings": [
+    {
+      "code": "missing_author_judgment",
+      "severity": "medium",
+      "message": "没有识别到明确的作者判断。"
+    },
+    {
+      "code": "weak_article_architecture",
+      "severity": "low",
+      "message": "少于三个正文层级，检查链路是否容易跟随。"
+    }
+  ],
+  "note": "Deterministic editorial heuristic, not an AI detector or factual verifier. --trend-linked is deprecated."
+}

@@ -1,49 +1,11 @@
-# Research Pack schema
+# Industry research pack schema
 
-Build this before drafting when external facts matter.
+Use JSON so `article_lint.py` can validate coverage. See `templates/industry-research-pack.md`.
 
-```yaml
-topic: ""
-article_type: ""
-as_of_date: "YYYY-MM-DD"
+Required keys: `topic`, `as_of_date`, `event_anchor`, `thesis`, `anchor_numbers`, `timeline`, `layers`, `claims`, `opportunities`, `bottlenecks`, and `sources`.
 
-thesis_candidate: ""
-reader_payoff: ""
+Every claim has `id`, `text`, `state`, and `source_ids`. Allowed states: `verified_fact`, `reported_claim`, `author_inference`, `proposal`, `unknown`.
 
-verified_facts:
-  - claim: ""
-    source: ""
-    source_type: "primary|practitioner|community"
-    date: ""
+Every layer has `name`, `input`, `operation`, `output`, `recipient`, `decision_owner`, `failure_mode`, `state`, and `source_ids`.
 
-user_experience:
-  - statement: ""
-    evidence: "user-provided note/screenshot/log"
-
-community_observations:
-  - observation: ""
-    source: ""
-    caveat: "anecdotal / sample limitation"
-
-uncertain_claims:
-  - claim: ""
-    reason_uncertain: ""
-
-protected_literals:
-  - "GPT-5.6"
-  - "codex --full-auto"
-  - "https://..."
-
-possible_angles:
-  - ""
-
-counterpoints:
-  - ""
-```
-
-Rules:
-
-- Facts without a source stay in `uncertain_claims`.
-- User experience is not interchangeable with internet evidence.
-- Community reaction must be attributed as reaction.
-- The draft may omit Research Pack material; it may not silently strengthen uncertain material into fact.
+Unknown values remain empty or use `state: unknown`. Never fill gaps with plausible detail.

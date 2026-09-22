@@ -1,5 +1,21 @@
 # Changelog
 
+## 1.1.0
+
+- Archived the exact sanitation v2 draft with its SHA256 and user-reported Zhuque 100% human result, without claiming independent verification.
+- Added object-led writing analysis and made numbered article sections optional.
+- Integrated installed gzh-design with automatic content-based theme selection and approved-text preservation.
+
+## 1.0.0 — 2026-09-22
+
+- Rebuilt the Skill around one output: evidence-led Chinese AI industry landing-observation articles.
+- Removed dual routing from the entrypoint; ordinary-person tutorials, prompt collections and generic news summaries are no longer supported modes.
+- Added five-state claim boundaries, event timelines, layer handoffs, observed/inferred/proposed chain maps, opportunity tests and bottleneck analysis.
+- Added a machine-readable industry research pack and an event-anchor article template.
+- Replaced ordinary-reader tutorial lint with industry-observation checks for sources, numbers, handoffs, author judgment, proposal boundaries, unknowns, constraints and the human endpoint.
+- Kept domestic self-media and global collection adapters available as research inputs while requiring authoritative sources for central facts.
+- Preserved Zhuque as an optional exact-draft signal rather than a promised outcome.
+
 ## 0.3.1 — 2026-09-21
 
 - Added a reader-situation, cognitive-gap, hook, credibility and payoff gate to topic selection, adapting relevant dbskill editorial lenses.
