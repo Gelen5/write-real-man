@@ -30,3 +30,7 @@
 ## 交付
 
 保存原始 Markdown、纯 section 正文 HTML、复制按钮预览。使用安装 Skill 的绝对路径运行 `scripts/validate_gzh_html.py`，修复 ERROR 与标点 WARNING，再运行 `scripts/wrap_preview.py`。检查渲染文本有无增删、来源链接是否完整，交付主题选择理由与验证结果。排版不包括发布公众号。
+
+## 强制文字一致性检查
+
+依 `acceptance.md` 锁定检测稿。运行 `python scripts/acceptance.py layout article.md clean.html`，文字或有序链接不一致即停止验收。不得增加 END、英文标签、摘要、目录或原稿没有的编号；标题必须保留在可比对产物中。上游 HTML 校验通过不代表文字一致。

@@ -26,7 +26,7 @@ class ZhuqueTests(unittest.TestCase):
         self.assertTrue(result["segments"][1]["risky"])
 
     def test_internal_gate(self):
-        result = {"human_ratio": 0.82, "ai_ratio": 0.08, "suspected_ai_ratio": 0.10}
+        result = {"status": "success", "unit": "fraction", "human_ratio": 0.82, "ai_ratio": 0.08, "suspected_ai_ratio": 0.10}
         gate = evaluate(result, 0.7, 0.15, 0.25)
         self.assertTrue(gate["pass"])
 

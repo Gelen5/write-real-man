@@ -30,7 +30,7 @@ def main() -> int:
         if key not in skill[:700]: errors.append(f"SKILL.md missing frontmatter field {key}")
     for route in ROUTES:
         if route not in skill: errors.append(f"SKILL.md does not route to {route}")
-    if "version: 1.1.0" not in skill[:700]: errors.append("expected version 1.1.0")
+    if "version: 1.2.0" not in skill[:700]: errors.append("expected version 1.2.0")
     for phrase in FORBIDDEN_ROUTING:
         if phrase in skill: errors.append(f"legacy dual-route phrase remains: {phrase}")
     print("INVALID" if errors else "VALID")

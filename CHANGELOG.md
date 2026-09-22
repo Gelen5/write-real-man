@@ -1,3 +1,11 @@
+# 1.2.0
+
+- Replace keyword score with mechanical findings and required semantic review.
+- Bind detector evidence to exact draft hash; validate status, units and ratios.
+- Add offline acceptance, text-preserving layout gate and consecutive-cohort reporting.
+- Unify configuration around industry observation; manual detection feedback by default.
+- External detector stability remains unmeasured.
+
 # Changelog
 
 ## 1.1.0

@@ -2,7 +2,7 @@
 name: write-real-man
 description: Research and write Chinese AI industry landing-observation articles from current public evidence. Use for AI industry topics, application cases, government or media evidence, multi-layer technical or business chains, industry opportunities, constraints, and readable author judgment. Produces one evidence-led mode only; it does not route to ordinary-person tutorials.
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Write Real Man
@@ -19,6 +19,10 @@ Write one kind of article: **AI 智能落地观察**.
 - Never invent personal experience, interviews, adoption, revenue, effectiveness, quotes, or consensus.
 - Do not promise a Zhuque score. Feedback applies only to the exact tested draft and run.
 - Do not switch into beginner tutorials, prompt collections, product tours, or generic AI news summaries.
+
+## Mandatory acceptance contract
+
+Read `workflows/acceptance.md` before drafting. Local lint is not a human-writing score. Every delivery states editorial status and detector status separately. An untested draft is pending detection, never accepted. Preserve one industry-observation mode. Legacy tutorial resources are historical only.
 
 ## Workflow
 
@@ -48,7 +52,7 @@ Read `workflows/industry-write.md`, `references/industry-human-style.md`, and `t
 
 Before drafting, read `references/validated-sanitation-case.md`. Its object-led progression is the default for connected operational cases. The sectioned observation template is optional: do not force numbered headings, data cards, a repeated thesis, or a summary into a continuous narrative. Research completeness does not require displaying every research field in the article.
 
-Use an event-anchor title with a concrete number, time window, action, or consequence. Open inside the event and state the question the article answers. Recommended movement:
+Choose a title exposing the real consequence; do not force a number into it. Before drafting identify a traceable object and one unresolved question. A launch or laboratory announcement alone is insufficient without concrete operational evidence. Use an event-anchor title with a concrete number, time window, action, or consequence. Open inside the event and state the question the article answers. Optional research coverage (never a compulsory section sequence):
 
 1. event and timeline;
 2. wider operational or market pressure;
@@ -71,7 +75,7 @@ python scripts/integrity_check.py source-notes.md article.md
 
 Use the integrity comparison when source notes or a previous draft exist. Read `workflows/zhuque.md` only when Zhuque is enabled or the user supplies a result. Revise paragraph function before surface wording: replace empty explanation with evidence, a handoff, a constraint, a decision, or a consequence.
 
-Deliver the article first, then sources and a compact note separating facts, inference, proposals, and unknowns.
+Deliver the article first, then sources and a compact note separating facts, inference, proposals, and unknowns. Run the version-bound acceptance workflow before claiming acceptance. Never add unsupported handoffs to satisfy lint keywords.
 
 ### 6. Match layout to the finished article
 
